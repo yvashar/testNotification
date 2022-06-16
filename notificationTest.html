@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+<script>
+// Using https://rawgithub.com/auchenberg/WebNotification.js/master/WebNotification.js as a external lib.
+
+$(function() {
+
+
+   
+    $('.request').on('click', function() {
+        if (window.Notifications.checkPermission() == 0) {
+                createNotification();
+        } else {
+                window.Notifications.requestPermission();
+        }
+    });
+
+    function createNotification() {
+    var notification = window.Notifications.createNotification
+                       ("1.png", 
+                       "New HTML5 Notification Received - Subject", 
+                       "More Content...");
+    notification.onshow = function () {
+        setTimeout(notification.cancel(), 1500);
+    }
+    notification.show();
+}
+
+    // $('.show').on('click', function() {
+
+    //     if(window.Notification.permission !== 'granted') {
+    //         alert('Permissions hasnt been granted');
+    //     }
+
+    //     new window.Notification('This is a test');        
+    // });    
+
+})
+</script>
+
+<button class="request">Request permissions</button>
+<button class="show">Show notification</button>
+</html>
